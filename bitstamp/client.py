@@ -359,12 +359,16 @@ class Trading(Public):
         url = self._construct_url("buy/", base, quote)
         return self._post(url, data=data, return_json=True, version=2)
 
-    def buy_market_order(self, amount, base="btc", quote="usd"):
+    def market_order(self, execute_buy_sell, amount, base="btc", quote="usd"):
         """
         Order to buy amount of bitcoins for market price.
         """
         data = {'amount': amount}
-        url = self._construct_url("buy/market/", base, quote)
+        if execute_buy_sell == 'buy'
+            endpoint = "buy/market/"
+        elif execute_buy_sell == 'sell'
+            endpoint = "sell/market/"            
+        url = self._construct_url(endpoint, base, quote)
         return self._post(url, data=data, return_json=True, version=2)
 
     def sell_limit_order(self, amount, price, base="btc", quote="usd", limit_price=None, ioc_order=False):
@@ -377,14 +381,6 @@ class Trading(Public):
         if ioc_order is True:
             data['ioc_order'] = True
         url = self._construct_url("sell/", base, quote)
-        return self._post(url, data=data, return_json=True, version=2)
-
-    def sell_market_order(self, amount, base="btc", quote="usd"):
-        """
-        Order to sell amount of bitcoins for market price.
-        """
-        data = {'amount': amount}
-        url = self._construct_url("sell/market/", base, quote)
         return self._post(url, data=data, return_json=True, version=2)
 
     def check_bitstamp_code(self, code):
